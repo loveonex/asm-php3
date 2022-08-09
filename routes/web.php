@@ -17,7 +17,6 @@ use App\Http\Controllers\MyController;
 
 Route::get('/', 'Client\HomeController@index')->name('route_Frontend_Home');
 
-
 //Route::post('postFile', [MyController::class, 'uploadFile'])->name('postFile');
 
 Route::get('/login', 'Client\AccountController@login')->name('route_Frontend_Login');
@@ -44,14 +43,16 @@ Route::controller('FrontEnd\FrontEndController')->group(function(){
 
 // BACKEND
 Route::middleware(['auth'])->group(function (){
-    Route::prefix('/admin')->group(function (){
+    Route::prefix('admin')->group(function (){
 
-        Route::get('/dashboard', function () {
+        Route::get('dashboard', function () {
             return view('admin.layouts.main', ['title'=>'Dashboard']);
         });
 
+        Route::get('info', 'Admin\UsersController@info')->name("Route_BackEnd_AdminInfo");
+
 //      Product
-        Route::prefix('/product')->group(function(){
+        Route::prefix('product')->group(function(){
 //            Controller Product
             Route::controller('Admin\ProductController')->group(function (){
                 Route::get('/', 'index')->name('admin_product'); // get list product
